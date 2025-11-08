@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medidor de Frecuencia — Neotech EduLab</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#0f172a" />
+</head>
+<body class="theme-dark">
+  <header class="topbar">
+    <div class="logo">🎛️ Frecuencia Neotech</div>
+    <nav class="controls">
+      <button id="btn-home" title="Inicio">🏠</button>
+      <button id="btn-voz" title="Leer frecuencia">🗣️</button>
+      <button id="btn-theme" title="Tema claro/oscuro">🌓</button>
+      <button id="btn-plus" title="Aumentar texto">A+</button>
+      <button id="btn-minus" title="Disminuir texto">A−</button>
+      <button id="btn-lang" title="Cambiar idioma">🌐</button>
+      <button id="btn-focus" title="Modo atención">🧠</button>
+      <button id="btn-search" title="Buscar">🔍</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h1 data-i18n="title">📡 Medidor de frecuencia (2D + 3D)</h1>
+      <p data-i18n="subtitle">Selector de micrófono, pausa de análisis, 3D local, historial y exportación.</p>
+      <div class="btn-row">
+        <button id="btn-start" class="primary" data-i18n="start">🎙️ Iniciar medición</button>
+        <button id="btn-stop" class="secondary" disabled data-i18n="stop">⏹️ Detener</button>
+        <button id="btn-freeze" class="secondary" disabled>🧊 Congelar máx.</button>
+        <button id="btn-pause" class="secondary" disabled>⏸️ Pausar</button>
+        <button id="btn-export" class="csv" disabled>📤 Exportar CSV</button>
+        <button id="btn-mode" class="secondary">👨‍🏫 Modo docente</button>
+        <button id="btn-toggle-3d" class="secondary">🧱 3D ON/OFF</button>
+      </div>
+      <div class="device-row">
+        <label for="inputDevice">🎤 Fuente de audio:</label>
+        <select id="inputDevice"></select>
+        <label for="perfMode">⚙️ Rendimiento:</label>
+        <select id="perfMode">
+          <option value="high">Alto</option>
+          <option value="medium" selected>Medio</option>
+          <option value="low">Bajo</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="freq-wrapper" id="lab-panel">
+      <div class="freq-display current">
+        <span>Frecuencia actual:</span>
+        <div id="freq-value">-- Hz</div>
+      </div>
+      <div class="freq-display max">
+        <span>Frecuencia máxima:</span>
+        <div id="freq-max">-- Hz</div>
+      </div>
+      <div class="freq-display current">
+        <span>Muestras:</span>
+        <div id="freq-samples">0</div>
+      </div>
+    </section>
+
+    <section class="graph-card">
+      <h2>📈 Espectro 2D</h2>
+      <canvas id="freqCanvas" width="900" height="220"></canvas>
+    </section>
+
+    <section class="graph-card" id="card-3d">
+      <h2>🧊 Espectro 3D en tiempo real</h2>
+      <div id="scene3d" class="scene3d">
+        <span id="scene3d-fallback" class="fallback">Cargando 3D… (verifica /libs)</span>
+      </div>
+    </section>
+
+    <section class="history-card" id="history-card">
+      <h2>🕒 Historial reciente</h2>
+      <table>
+        <thead><tr><th>#</th><th>ms</th><th>Hz</th><th>Hz máx.</th></tr></thead>
+        <tbody id="history-body"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Buscar en la página..." />
+      <button id="search-close">Cerrar</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>📚© Neotech EduLab — Educación Inmersiva<br/>🛠️Prohibida su copia y/o reproducción</p>
+  </footer>
+
+  <!-- usamos las libs locales; tú pegas los archivos reales aquí -->
+  <script src="./libs/three.min.js"></script>
+  <script src="./libs/OrbitControls.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
